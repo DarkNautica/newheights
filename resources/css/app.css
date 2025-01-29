@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Set global font styles */
+body {
+    font-family: 'Mont', sans-serif;
+    font-weight: 400; /* Regular weight */
+  }
+  
+  /* Use Mont Bold for headings */
+  h1, h2, h3, h4, h5, h6, .font-bold {
+    font-weight: 700; /* Bold weight */
+  }
+  
+  /* Optional: Button text styling */
+  button {
+    font-family: 'Mont', sans-serif;
+    font-weight: 700;
+  }
+  
