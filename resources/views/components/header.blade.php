@@ -1,6 +1,6 @@
 <!-- Transparent Header -->
-<nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out bg-transparent backdrop-blur-md">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-1">
+<nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out {{ Request::is('/') ? 'bg-transparent backdrop-blur-md' : 'bg-white shadow-md' }}">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-1 relative">
     <!-- Logo Section -->
     <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <div class="flex-shrink-0 w-48">
@@ -9,11 +9,10 @@
     </a>
 
     <!-- Dropdown and Mobile Menu Toggle -->
-    <div class="flex items-center md:order-2 space-x-3 rtl:space-x-reverse">
+    <div class="flex items-center md:order-2 space-x-3 rtl:space-x-reverse relative">
       <!-- Language Dropdown -->
       <div class="relative">
-        <button id="languageButton" data-dropdown-toggle="dropdown"
-          class="text-white bg-[#EF4339] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-[#EF4339]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
+        <button id="languageButton" class="bg-[#EF4339] text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center">
           Language
           <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
@@ -21,8 +20,8 @@
         </button>
 
         <!-- Dropdown menu -->
-        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-          <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+        <div id="dropdown" class="hidden absolute left-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44">
+          <ul class="py-2 text-sm text-gray-700">
             <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">English (US)</a></li>
             <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Español</a></li>
             <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Français</a></li>
@@ -49,6 +48,7 @@
     font-family: 'Mont', sans-serif;
   }
 
+  /* Default Navbar Links */
   .nav-link {
     position: relative;
     display: inline-block;
@@ -56,12 +56,12 @@
     font-size: 1.125rem;
     font-weight: bold;
     text-decoration: none;
-    color: white;
+    color: white; /* Default to white for transparent navbar */
     transition: color 0.3s ease;
   }
 
   .nav-link:hover {
-    color: #EF4339;
+    color: #EF4339 !important;
   }
 
   .nav-link::after {
@@ -79,6 +79,18 @@
     width: 100%;
   }
 
+  /* Navbar States */
+  .navbar-default {
+    background-color: white !important;
+    backdrop-filter: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-transparent {
+    background-color: transparent !important;
+    backdrop-filter: blur(10px);
+  }
+
   /* Scrolled Navbar */
   .scrolled {
     background-color: white !important;
@@ -86,24 +98,72 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  /* Scrolled Navbar Text Color */
   .scrolled .nav-link {
-    color: #6a6a6a !important;
+    color: #EF4339 !important;
   }
 
-  .scrolled .nav-link:hover {
-    color: #EF4339 !important;
+  /* Language Button */
+  #languageButton {
+    background-color: #EF4339 !important;
+    color: white !important;
+  }
+
+  #languageButton:hover {
+    background-color: #D12C24 !important;
+  }
+
+  /* Dropdown Menu */
+  #dropdown {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 5px;
+    z-index: 100;
   }
 </style>
 
 <script>
-  window.addEventListener("scroll", function() {
+  document.addEventListener("DOMContentLoaded", function () {
     var navbar = document.getElementById("navbar");
+    var navLinks = document.querySelectorAll(".nav-link");
+    var languageButton = document.getElementById("languageButton");
+    var dropdown = document.getElementById("dropdown");
+    var isHomePage = window.location.pathname === "/"; // Check if it's the home page
 
-    if (window.scrollY > 50) { // Adjust threshold as needed
-      navbar.classList.add("scrolled");
+    if (isHomePage) {
+      navbar.classList.add("navbar-transparent");
+
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+          navbar.classList.remove("navbar-transparent");
+
+          // Change nav link colors when scrolled
+          navLinks.forEach(link => link.style.color = "#EF4339");
+        } else {
+          navbar.classList.remove("scrolled");
+          navbar.classList.add("navbar-transparent");
+
+          // Change nav link colors back to white when unscrolled
+          navLinks.forEach(link => link.style.color = "white");
+        }
+      });
     } else {
-      navbar.classList.remove("scrolled");
+      navbar.classList.add("navbar-default");
+      navLinks.forEach(link => link.style.color = "#EF4339");
     }
+
+    // Fix dropdown so it works everywhere
+    languageButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      dropdown.classList.toggle("hidden");
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+      if (!languageButton.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.classList.add("hidden");
+      }
+    });
   });
 </script>

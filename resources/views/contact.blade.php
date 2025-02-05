@@ -3,65 +3,71 @@
 @section('title', 'Contact Us')
 
 @section('content')
-<section class="min-h-screen bg-cover" style="background-image: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')">
-    <div class="flex flex-col min-h-screen bg-black/60">
-        <div class="container flex flex-col flex-1 px-6 py-12 mx-auto">
-            <div class="flex-1 lg:flex lg:items-center lg:-mx-6">
-                <div class="text-white lg:w-1/2 lg:mx-6">
-                    <h1 class="text-2xl font-semibold capitalize lg:text-3xl">Ultimate Design Solution</h1>
+<!-- Contact Page with Styled Sections -->
+<section class="relative bg-gradient-to-b from-white/50 to-white/100 py-20 pt-40">
+  <!-- Shared Background Grid -->
+  <div class="absolute inset-0 pointer-events-none bg-grid-pattern"></div>
 
-                    <p class="max-w-xl mt-6">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem quo
-                        aliquid molestiae hic incidunt beatae placeat accusantium! Alias ex quisquam ab tempora. Ratione
-                        autem doloremque ducimus numquam doloribus, error sed.
-                    </p>
-
-                    <button class="px-8 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50">
-                        Get in Touch
-                    </button>
-
-                    <div class="mt-6 md:mt-8">
-                        <h3 class="text-gray-300">Follow us</h3>
-                        <div class="flex mt-4 -mx-1.5">
-                            <!-- Social media links -->
-                            <a class="mx-1.5 text-white transition-colors duration-300 transform hover:text-blue-500" href="#"><svg class="w-10 h-10 fill-current" ...></svg></a>
-                            <a class="mx-1.5 text-white transition-colors duration-300 transform hover:text-blue-500" href="#"><svg class="w-8 h-8" ...></svg></a>
-                            <a class="mx-1.5 text-white transition-colors duration-300 transform hover:text-blue-500" href="#"><svg class="w-8 h-8" ...></svg></a>
-                            <a class="mx-1.5 text-white transition-colors duration-300 transform hover:text-blue-500" href="#"><svg class="w-8 h-8" ...></svg></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8 lg:w-1/2 lg:mx-6">
-                    <div class="w-full px-8 py-10 mx-auto overflow-hidden bg-white shadow-2xl rounded-xl lg:max-w-xl">
-                        <h1 class="text-xl font-medium text-gray-700">Contact Form</h1>
-                        <p class="mt-2 text-gray-500">
-                            Ask us everything and we would love to hear from you.
-                        </p>
-                        <form class="mt-6">
-                            <div class="flex-1">
-                                <label class="block mb-2 text-sm text-gray-600">Full Name</label>
-                                <input type="text" placeholder="John Doe" class="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
-                            </div>
-
-                            <div class="flex-1 mt-6">
-                                <label class="block mb-2 text-sm text-gray-600">Email Address</label>
-                                <input type="email" placeholder="johndoe@example.com" class="block w-full px-5 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring">
-                            </div>
-
-                            <div class="w-full mt-6">
-                                <label class="block mb-2 text-sm text-gray-600">Message</label>
-                                <textarea placeholder="Message" class="block w-full h-32 px-5 py-3 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"></textarea>
-                            </div>
-
-                            <button class="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50">
-                                Get in Touch
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
+    <!-- Contact Information Section -->
+    <div class="mx-auto max-w-2xl divide-y divide-gray-200 lg:mx-0 lg:max-w-none">
+      <div class="grid grid-cols-1 gap-10 py-16 lg:grid-cols-3">
+        <div>
+          <h2 class="text-4xl font-extrabold text-[#EF4339] tracking-tight">Get in Touch</h2>
+          <p class="mt-4 text-lg text-gray-600">
+            We’d love to hear from you! Reach out to us via email or phone.
+          </p>
         </div>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8">
+          @foreach([
+            ['title' => 'Collaborate', 'email' => 'collaborate@example.com', 'phone' => '+1 (555) 905-2345'],
+            ['title' => 'Press', 'email' => 'press@example.com', 'phone' => '+1 (555) 905-3456'],
+            ['title' => 'Join our team', 'email' => 'careers@example.com', 'phone' => '+1 (555) 905-4567'],
+            ['title' => 'Say hello', 'email' => 'hello@example.com', 'phone' => '+1 (555) 905-5678'],
+          ] as $contact)
+          <div class="rounded-2xl bg-gradient-to-b from-white/60 to-white/80 p-10 shadow-lg">
+            <h3 class="text-lg font-semibold text-gray-900">{{ $contact['title'] }}</h3>
+            <dl class="mt-3 space-y-1 text-sm text-gray-600">
+              <div>
+                <dt class="sr-only">Email</dt>
+                <dd><a class="font-semibold text-[#EF4339]" href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a></dd>
+              </div>
+              <div class="mt-1">
+                <dt class="sr-only">Phone number</dt>
+                <dd>{{ $contact['phone'] }}</dd>
+              </div>
+            </dl>
+          </div>
+          @endforeach
+        </div>
+      </div>
+
+      <!-- Locations Section -->
+      <div class="grid grid-cols-1 gap-10 py-16 lg:grid-cols-3">
+        <div>
+          <h2 class="text-4xl font-extrabold text-[#EF4339] tracking-tight">Our Locations</h2>
+          <p class="mt-4 text-lg text-gray-600">
+            Find us in major cities around the world.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2 lg:gap-8">
+          @foreach([
+            ['city' => 'Los Angeles', 'address' => '4556 Brendan Ferry', 'state' => 'Los Angeles, CA 90210'],
+            ['city' => 'New York', 'address' => '886 Walter Street', 'state' => 'New York, NY 12345'],
+            ['city' => 'Toronto', 'address' => '7363 Cynthia Pass', 'state' => 'Toronto, ON N3Y 4H8'],
+            ['city' => 'Chicago', 'address' => '726 Mavis Island', 'state' => 'Chicago, IL 60601'],
+          ] as $location)
+          <div class="rounded-2xl bg-gradient-to-b from-white/60 to-white/80 p-10 shadow-lg">
+            <h3 class="text-lg font-semibold text-gray-900">{{ $location['city'] }}</h3>
+            <address class="mt-3 space-y-1 text-sm not-italic text-gray-600">
+              <p>{{ $location['address'] }}</p>
+              <p>{{ $location['state'] }}</p>
+            </address>
+          </div>
+          @endforeach
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 @endsection
